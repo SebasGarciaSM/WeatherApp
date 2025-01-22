@@ -20,7 +20,7 @@ class WeatherUtils {
         }
     }
 
-    fun getDegrees(value: Float): String {
+    fun getDegrees(value: Int): String {
         return "$value°"
     }
 

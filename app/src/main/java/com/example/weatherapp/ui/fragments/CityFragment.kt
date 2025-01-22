@@ -63,12 +63,19 @@ class CityFragment : Fragment() {
                     val city = result.data
                     binding.tvCityName.text = city.name
                     binding.tvTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.temp)
-                    binding.tvFeelsLike.text = weatherUtils.getKelvinToCelsius(city.mainWeather.feelsLike)
-                    binding.tvMaxTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.tempMax)
-                    binding.tvMinTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.tempMin)
+                    binding.tvFeelsLike.text =
+                        weatherUtils.getKelvinToCelsius(city.mainWeather.feelsLike)
+                    binding.tvMaxTemp.text =
+                        weatherUtils.getKelvinToCelsius(city.mainWeather.tempMax)
+                    binding.tvMinTemp.text =
+                        weatherUtils.getKelvinToCelsius(city.mainWeather.tempMin)
                     binding.tvPressure.text = city.mainWeather.pressure.toString()
                     binding.tvHumidity.text = weatherUtils.getPercentage(city.mainWeather.humidity)
                     binding.tvSeaLevel.text = city.mainWeather.seaLevel.toString()
+
+                    binding.tvSpeed.text = weatherUtils.getMetersPerSecond(city.wind.speed)
+                    binding.tvGust.text = weatherUtils.getMetersPerSecond(city.wind.gust)
+                    binding.tvDegrees.text = weatherUtils.getDegrees(city.wind.deg)
 
                     val currentWeatherIcon = city.weather.first().icon
                     Picasso.get()

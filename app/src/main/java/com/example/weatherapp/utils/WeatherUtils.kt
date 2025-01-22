@@ -8,8 +8,20 @@ class WeatherUtils {
         return "$roundedCelsius°C"
     }
 
-    fun getPercentage(value:Int): String {
+    fun getPercentage(value: Int): String {
         return "$value%"
+    }
+
+    fun getMetersPerSecond(value: Float): String {
+        if(value != 0.0f){
+            return "$value m/s"
+        } else{
+            return "n/a"
+        }
+    }
+
+    fun getDegrees(value: Float): String {
+        return "$value°"
     }
 
 }

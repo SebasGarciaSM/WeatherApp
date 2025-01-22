@@ -7,4 +7,9 @@
     <color name="red">#E91E1E</color>
     <color name="lightGrey">#838383</color>
     <color name="smoke">#ebebeb</color>
+    <color name="lightSky">#E3F4FE</color>
+    <color name="blue">#0D9DE3</color>
+    <color name="smokeGreen">#7F9BA6</color>
+    <color name="darkGreen">#4E6969</color>
+    <color name="smokeGrey">#CECECE</color>
 </resources>

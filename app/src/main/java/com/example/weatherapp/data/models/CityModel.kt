@@ -7,4 +7,5 @@ data class CityModel(
     @SerializedName("name") val name: String,
     @SerializedName("weather") val weather: List<WeatherModel>,
     @SerializedName("main") val mainWeather: MainWeatherModel,
+    @SerializedName("wind") val wind: WindModel,
 )

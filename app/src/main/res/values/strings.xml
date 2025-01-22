@@ -11,9 +11,14 @@
     <string name="pressure">Pressure:</string>
     <string name="humidity">Humidity:</string>
     <string name="sealevel">Sea level:</string>
+    <string name="wind">Wind</string>
+    <string name="speed">Speed</string>
+    <string name="gust">Gust</string>
+    <string name="degrees">Degrees</string>
 
     <string name="errorMessage">An error has occurred</string>
 
     <string name="cityNotFound">City was not found</string>
+
 
 </resources>

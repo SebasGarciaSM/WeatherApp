@@ -11,24 +11,12 @@ class CityService {
 
     private val retrofit = RetrofitHelper.getRetrofit()
 
-    suspend fun getCity(query: String): CityModel? {
-        try {
-            return withContext(Dispatchers.IO) {
-
-                val retrofitResponse: Response<CityModel> =
-                    retrofit.create(CityApiClient::class.java)
-                        .getCity(query)
-
-                if (retrofitResponse.body() != null) {
-                    retrofitResponse.body()!!
-                } else {
-                    null
-                }
-            }
-        } catch (e: Exception) {
-            Log.i("tag", e.toString())
+    suspend fun getCity(query: String): Response<CityModel> {
+        return withContext(Dispatchers.IO) {
+            val retrofitResponse: Response<CityModel> =
+                retrofit.create(CityApiClient::class.java)
+                    .getCity(query)
+            retrofitResponse
         }
-        return null
     }
-
 }

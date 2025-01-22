@@ -14,4 +14,6 @@
 
     <string name="errorMessage">An error has occurred</string>
 
+    <string name="cityNotFound">City was not found</string>
+
 </resources>

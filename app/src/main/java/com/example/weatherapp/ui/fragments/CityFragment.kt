@@ -6,17 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.activityViewModels
-import com.example.weatherapp.R
+import androidx.lifecycle.lifecycleScope
+import com.example.weatherapp.databinding.FragmentCityBinding
 import com.example.weatherapp.ui.viewmodels.CityViewModel
+import com.example.weatherapp.ui.views.MainActivity.Companion.CITY_NAME
+import com.example.weatherapp.ui.views.dataStore
+import com.example.weatherapp.utils.ApiState
 import com.example.weatherapp.utils.WeatherUtils
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 
 class CityFragment : Fragment() {
     private val cityViewModel: CityViewModel by activityViewModels()
+
     private lateinit var weatherUtils: WeatherUtils
+    private lateinit var binding: FragmentCityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,40 +35,68 @@ class CityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_city, container, false)
-        return initFragmentUI(view)
+        binding = FragmentCityBinding.inflate(inflater, container, false)
+
+        lifecycleScope.launch {
+            dataStore.data.collect { preferences ->
+                preferences[stringPreferencesKey(CITY_NAME)]
+            }
+        }
+
+        initFragmentUI()
+
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initFragmentUI(view: View): View {
+    private fun initFragmentUI() {
+        cityViewModel.cityState.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ApiState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
 
-        val tvCityName = view.findViewById<TextView>(R.id.tvCityName)
-        val tvTemp = view.findViewById<TextView>(R.id.tvTemp)
-        val tvFeelsLike = view.findViewById<TextView>(R.id.tvFeelsLike)
-        val tvTempMax = view.findViewById<TextView>(R.id.tvMaxTemp)
-        val tvMinTemp = view.findViewById<TextView>(R.id.tvMinTemp)
-        val tvPressure = view.findViewById<TextView>(R.id.tvPressure)
-        val tvHumidity = view.findViewById<TextView>(R.id.tvHumidity)
-        val tvSeaLevel = view.findViewById<TextView>(R.id.tvSeaLevel)
-        val ivWeatherIcon = view.findViewById<ImageView>(R.id.ivWeatherIcon)
+                is ApiState.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    cityViewModel.isCityFragmentVisible.postValue(true)
 
+                    val city = result.data
+                    binding.tvCityName.text = city.name
+                    binding.tvTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.temp)
+                    binding.tvFeelsLike.text = weatherUtils.getKelvinToCelsius(city.mainWeather.feelsLike)
+                    binding.tvMaxTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.tempMax)
+                    binding.tvMinTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.tempMin)
+                    binding.tvPressure.text = city.mainWeather.pressure.toString()
+                    binding.tvHumidity.text = weatherUtils.getPercentage(city.mainWeather.humidity)
+                    binding.tvSeaLevel.text = city.mainWeather.seaLevel.toString()
 
-        cityViewModel.city.observe(viewLifecycleOwner) { it ->
-            tvCityName.text = it.name
-            tvTemp.text = weatherUtils.getKelvinToCelsius(it.mainWeather.temp)
-            tvFeelsLike.text = weatherUtils.getKelvinToCelsius(it.mainWeather.feelsLike)
-            tvTempMax.text = weatherUtils.getKelvinToCelsius(it.mainWeather.tempMax)
-            tvMinTemp.text = weatherUtils.getKelvinToCelsius(it.mainWeather.tempMin)
-            tvPressure.text = it.mainWeather.pressure.toString()
-            tvHumidity.text = weatherUtils.getPercentage(it.mainWeather.humidity)
-            tvSeaLevel.text = it.mainWeather.seaLevel.toString()
+                    val currentWeatherIcon = city.weather.first().icon
+                    Picasso.get()
+                        .load("https://openweathermap.org/img/wn/$currentWeatherIcon@4x.png")
+                        .into(binding.ivWeatherIcon)
 
-            val currentWeatherIcon = it.weather.first().icon
-            Picasso.get().load("https://openweathermap.org/img/wn/$currentWeatherIcon@4x.png")
-                .into(ivWeatherIcon)
+                    lifecycleScope.launch {
+                        saveCityName(city.name)
+                    }
+                }
+
+                is ApiState.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(context, result.message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
+    }
 
-        return view
+    //Access to the Context of the Activity
+    private val dataStore by lazy {
+        requireContext().dataStore
+    }
+
+    //Saves City Name on DataStore
+    private suspend fun saveCityName(value: String) {
+        dataStore.edit { preferences ->
+            preferences[stringPreferencesKey(CITY_NAME)] = value
+        }
     }
 }

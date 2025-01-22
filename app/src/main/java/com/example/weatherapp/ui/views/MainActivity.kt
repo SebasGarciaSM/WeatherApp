@@ -2,8 +2,6 @@ package com.example.weatherapp.ui.views
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Observer
@@ -33,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val cityViewModel: CityViewModel by viewModels()
-    private val firstTime: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             getCityStored().collect { cityName ->
-                if(!cityName.isNullOrEmpty()){
-                    Log.i("tag", "Ciudad guardada $cityName")
+                if (!cityName.isNullOrEmpty()) {
                     runOnUiThread {
                         binding.searchView.setQuery(cityName, true)
                     }
@@ -71,9 +66,6 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?) = false
         })
 
-        cityViewModel.isLoading.observe(this, Observer {
-            binding.progressBar.isVisible = it
-        })
 
         cityViewModel.isCityFragmentVisible.observe(this, Observer {
             binding.fragmentContainer.isVisible = it
@@ -82,25 +74,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchByName(query: String) {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
-                cityViewModel.getCity(query)
-                saveCityName(query)
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this, R.string.errorMessage, Toast.LENGTH_SHORT).show()
-            Log.i("Error", e.toString())
+        CoroutineScope(Dispatchers.IO).launch {
+            cityViewModel.getCity(query)
         }
     }
 
     companion object {
         const val CITY_NAME = "city_name"
-    }
-
-    private suspend fun saveCityName(value: String) {
-        dataStore.edit { preferences ->
-            preferences[stringPreferencesKey(CITY_NAME)] = value
-        }
     }
 
     private fun getCityStored(): Flow<String?> {

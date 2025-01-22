@@ -1,190 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cityInfoContainer"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="10dp"
-    android:paddingTop="20dp"
-    tools:context=".ui.fragments.CityFragment"
-    android:background="@color/smoke">
+    android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
+
+    <LinearLayout
+        android:id="@+id/cityInfoContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:elevation="10dp"
-        app:cardCornerRadius="20dp"
-        android:layout_marginHorizontal="20dp">
+        android:layout_height="match_parent"
+        android:background="@color/smoke"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="20dp"
+        tools:context=".ui.fragments.CityFragment">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:backgroundTint="@color/white"
+            android:elevation="10dp"
+            app:cardCornerRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingVertical="10dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/tvCityName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:text="SAN ANTONIO" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivWeatherIcon"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        tools:src="@drawable/ic_example" />
+
+                    <TextView
+                        android:id="@+id/tvTemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="60sp"
+                        android:textStyle="bold"
+                        tools:text="20°" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
             android:orientation="vertical"
-            android:paddingVertical="10dp">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:id="@+id/tvCityName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_vertical"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    tools:text="SAN ANTONIO" />
-
-            </FrameLayout>
+            android:paddingHorizontal="18dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginVertical="6dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/ivWeatherIcon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    tools:src="@drawable/ic_example" />
+                <TextView
+                    style="@style/DataTitle"
+                    android:text="@string/feelsLike" />
 
                 <TextView
-                    android:id="@+id/tvTemp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="60sp"
-                    android:textStyle="bold"
-                    tools:text="20°" />
+                    android:id="@+id/tvFeelsLike"
+                    style="@style/DataDescription"
+                    tools:text="123456" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DataTitle"
+                    android:text="@string/maxTemp" />
+
+                <TextView
+                    android:id="@+id/tvMaxTemp"
+                    style="@style/DataDescription"
+                    tools:text="123456" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DataTitle"
+                    android:text="@string/minTemp" />
+
+                <TextView
+                    android:id="@+id/tvMinTemp"
+                    style="@style/DataDescription"
+                    tools:text="123456" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DataTitle"
+                    android:text="@string/pressure" />
+
+                <TextView
+                    android:id="@+id/tvPressure"
+                    style="@style/DataDescription"
+                    tools:text="123456" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DataTitle"
+                    android:text="@string/humidity" />
+
+                <TextView
+                    android:id="@+id/tvHumidity"
+                    style="@style/DataDescription"
+                    tools:text="123456" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DataTitle"
+                    android:text="@string/sealevel" />
+
+                <TextView
+                    android:id="@+id/tvSeaLevel"
+                    style="@style/DataDescription"
+                    tools:text="123456" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="18dp"
-        android:layout_marginTop="14dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/DataTitle"
-                android:text="@string/feelsLike" />
-
-            <TextView
-                android:id="@+id/tvFeelsLike"
-                style="@style/DataDescription"
-                tools:text="123456" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/DataTitle"
-                android:text="@string/maxTemp" />
-
-            <TextView
-                android:id="@+id/tvMaxTemp"
-                style="@style/DataDescription"
-                tools:text="123456" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/DataTitle"
-                android:text="@string/minTemp" />
-
-            <TextView
-                android:id="@+id/tvMinTemp"
-                style="@style/DataDescription"
-                tools:text="123456" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/DataTitle"
-                android:text="@string/pressure" />
-
-            <TextView
-                android:id="@+id/tvPressure"
-                style="@style/DataDescription"
-                tools:text="123456" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/DataTitle"
-                android:text="@string/humidity" />
-
-            <TextView
-                android:id="@+id/tvHumidity"
-                style="@style/DataDescription"
-                tools:text="123456" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/DataTitle"
-                android:text="@string/sealevel" />
-
-            <TextView
-                android:id="@+id/tvSeaLevel"
-                style="@style/DataDescription"
-                tools:text="123456" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</FrameLayout>

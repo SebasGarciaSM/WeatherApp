@@ -16,7 +16,6 @@ retrofitVersion = "2.11.0"
 coroutineVersion = "1.10.1"
 picasso = "2.8"
 datastore = "1.0.0"
-protoDatastore = "3.18.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,7 +40,6 @@ coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutine
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
 
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
-protoDatastore = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protoDatastore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

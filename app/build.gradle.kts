@@ -71,5 +71,4 @@ dependencies {
 
     //DataStore
     implementation(libs.datastore)
-    implementation(libs.protoDatastore)
 }

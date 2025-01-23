@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        //This coroutine is executed when there's data saved in DataStore
+        //and then searches for the result
         CoroutineScope(Dispatchers.IO).launch {
             getCityStored().collect { cityName ->
                 if (!cityName.isNullOrEmpty()) {
@@ -55,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         initUI()
     }
 
+
+    //This method initializes the UI
     private fun initUI() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -73,16 +77,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //This method is executed when the Query is entered
     private fun searchByName(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
             cityViewModel.getCity(query)
         }
     }
 
+    //This object is the name of the field saved in DataStore
     companion object {
         const val CITY_NAME = "city_name"
     }
 
+    //This method returns the last city searched
     private fun getCityStored(): Flow<String?> {
         return dataStore.data.map { preferences ->
             preferences[stringPreferencesKey(CITY_NAME)] ?: ""

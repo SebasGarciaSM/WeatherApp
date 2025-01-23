@@ -10,6 +10,7 @@ class CityRepository() {
 
     private val api = CityService()
 
+    //Gets the response, and then returns the API Result State
     suspend fun getCity(query: String): ApiState<CityModel> {
         return try {
             val response = api.getCity(query)

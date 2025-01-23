@@ -11,6 +11,7 @@ class CityService {
 
     private val retrofit = RetrofitHelper.getRetrofit()
 
+    //Calls to endpoint, and then returns the response
     suspend fun getCity(query: String): Response<CityModel> {
         return withContext(Dispatchers.IO) {
             val retrofitResponse: Response<CityModel> =

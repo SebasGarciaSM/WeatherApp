@@ -8,6 +8,8 @@ import retrofit2.http.Query
 
 interface CityApiClient {
 
+    //Gets City Endpoint
+
     //GET CITY
     @GET("data/2.5/weather")
     suspend fun getCity(

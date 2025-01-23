@@ -53,13 +53,18 @@ class CityFragment : Fragment() {
         cityViewModel.cityState.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ApiState.Loading -> {
+                    //When data is Loading, UI shows Progress Bar
+
                     binding.progressBar.visibility = View.VISIBLE
                 }
 
                 is ApiState.Success -> {
+                    //When data is successfully received, the Progress Bar and Fragment need to be hidden
                     binding.progressBar.visibility = View.GONE
                     cityViewModel.isCityFragmentVisible.postValue(true)
 
+
+                    //When data is successfully received, it gets assign to all the fields in the UI
                     val city = result.data
                     binding.tvCityName.text = city.name
                     binding.tvTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.temp)
@@ -82,12 +87,15 @@ class CityFragment : Fragment() {
                         .load("https://openweathermap.org/img/wn/$currentWeatherIcon@4x.png")
                         .into(binding.ivWeatherIcon)
 
+                    //This coroutine saves the data into DataStore
                     lifecycleScope.launch {
                         saveCityName(city.name)
                     }
                 }
 
                 is ApiState.Error -> {
+                    //When data returns an error,
+                    //the Progress Bar is hidden and the UI shows a Toast with the error message
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(context, result.message, Toast.LENGTH_SHORT).show()
                 }

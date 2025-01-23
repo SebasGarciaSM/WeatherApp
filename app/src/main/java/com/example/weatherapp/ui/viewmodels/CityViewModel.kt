@@ -18,6 +18,7 @@ class CityViewModel : ViewModel() {
 
     var isCityFragmentVisible = MutableLiveData<Boolean>()
 
+    //This method returns the Result State
     fun getCity(query: String) {
         viewModelScope.launch {
             _cityState.value = ApiState.Loading

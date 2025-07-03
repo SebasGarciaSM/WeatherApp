@@ -14,6 +14,6 @@ interface CityApiClient {
     @GET("data/2.5/weather")
     suspend fun getCity(
         @Query("q") query: String,
-        @Query("appid") apiKey: String = Globals.API_KEY
+        @Query("appid") apiKey: String = Globals.API_KEY,
     ): Response<CityModel>
 }

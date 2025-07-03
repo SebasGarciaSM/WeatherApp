@@ -1,35 +1,38 @@
 package com.example.weatherapp.data.repositories
 
-import com.example.weatherapp.data.models.CityModel
+import com.example.weatherapp.data.Mappers.toWeatherDetailsModel
 import com.example.weatherapp.data.network.CityService
-import com.example.weatherapp.utils.ApiState
+import com.example.weatherapp.domain.interfaces.ICityRepository
+import com.example.weatherapp.domain.models.WeatherDetailsModel
+import com.example.weatherapp.domain.models.DomainState
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
-class CityRepository() {
+class CityRepository @Inject constructor() : ICityRepository {
 
     private val api = CityService()
 
     //Gets the response, and then returns the API Result State
-    suspend fun getCity(query: String): ApiState<CityModel> {
+    override suspend fun getWeatherByCity(cityName: String): DomainState<WeatherDetailsModel> {
         return try {
-            val response = api.getCity(query)
+            val response = api.getCity(cityName)
             if (response.isSuccessful) {
                 val city = response.body()
                 if (city != null) {
-                    ApiState.Success(city)
+                    DomainState.Success(city.toWeatherDetailsModel())
                 } else {
-                    ApiState.Error("City not found")
+                    DomainState.Error("City not found")
                 }
             } else {
-                ApiState.Error("City not found")
+                DomainState.Error("City not found")
             }
         } catch (e: IOException) {
-            ApiState.Error("Network error: ${e.message}")
+            DomainState.Error("Network error: ${e.message}")
         } catch (e: HttpException) {
-            ApiState.Error("HTTP error: ${e.message}")
+            DomainState.Error("HTTP error: ${e.message}")
         } catch (e: Exception) {
-            ApiState.Error("Unexpected error: ${e.message}")
+            DomainState.Error("Unexpected error: ${e.message}")
         }
     }
 

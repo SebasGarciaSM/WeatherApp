@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ActivityMainBinding
 import com.example.weatherapp.ui.viewmodels.CityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +26,8 @@ import kotlinx.coroutines.launch
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "city")
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity  : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 

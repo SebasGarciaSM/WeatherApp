@@ -15,20 +15,20 @@ import com.example.weatherapp.databinding.FragmentCityBinding
 import com.example.weatherapp.ui.viewmodels.CityViewModel
 import com.example.weatherapp.ui.views.MainActivity.Companion.CITY_NAME
 import com.example.weatherapp.ui.views.dataStore
-import com.example.weatherapp.utils.ApiState
-import com.example.weatherapp.utils.WeatherUtils
+import com.example.weatherapp.domain.models.DomainState
+import com.example.weatherapp.ui.UIWeatherUtils.appendDegreeFormat
+import com.example.weatherapp.ui.UIWeatherUtils.appendMetersPerSecondFormat
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class CityFragment : Fragment() {
     private val cityViewModel: CityViewModel by activityViewModels()
-
-    private lateinit var weatherUtils: WeatherUtils
     private lateinit var binding: FragmentCityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        weatherUtils = WeatherUtils()
     }
 
     override fun onCreateView(
@@ -52,13 +52,13 @@ class CityFragment : Fragment() {
     private fun initFragmentUI() {
         cityViewModel.cityState.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is ApiState.Loading -> {
+                is DomainState.Loading -> {
                     //When data is Loading, UI shows Progress Bar
 
                     binding.progressBar.visibility = View.VISIBLE
                 }
 
-                is ApiState.Success -> {
+                is DomainState.Success -> {
                     //When data is successfully received, the Progress Bar and Fragment need to be hidden
                     binding.progressBar.visibility = View.GONE
                     cityViewModel.isCityFragmentVisible.postValue(true)
@@ -67,22 +67,19 @@ class CityFragment : Fragment() {
                     //When data is successfully received, it gets assign to all the fields in the UI
                     val city = result.data
                     binding.tvCityName.text = city.name
-                    binding.tvTemp.text = weatherUtils.getKelvinToCelsius(city.mainWeather.temp)
-                    binding.tvFeelsLike.text =
-                        weatherUtils.getKelvinToCelsius(city.mainWeather.feelsLike)
-                    binding.tvMaxTemp.text =
-                        weatherUtils.getKelvinToCelsius(city.mainWeather.tempMax)
-                    binding.tvMinTemp.text =
-                        weatherUtils.getKelvinToCelsius(city.mainWeather.tempMin)
-                    binding.tvPressure.text = city.mainWeather.pressure.toString()
-                    binding.tvHumidity.text = weatherUtils.getPercentage(city.mainWeather.humidity)
-                    binding.tvSeaLevel.text = city.mainWeather.seaLevel.toString()
+                    binding.tvTemp.text = city.temperatureInCelsius.appendDegreeFormat()
+                    binding.tvFeelsLike.text = city.feelsLikeInCelsius.appendDegreeFormat()
+                    binding.tvMaxTemp.text = city.maxTempInCelsius.appendDegreeFormat()
+                    binding.tvMinTemp.text = city.minTempInCelsius.appendDegreeFormat()
+                    binding.tvPressure.text = city.pressure
+                    binding.tvHumidity.text = city.humidity
+                    binding.tvSeaLevel.text = city.seaLevel
 
-                    binding.tvSpeed.text = weatherUtils.getMetersPerSecond(city.wind.speed)
-                    binding.tvGust.text = weatherUtils.getMetersPerSecond(city.wind.gust)
-                    binding.tvDegrees.text = weatherUtils.getDegrees(city.wind.deg)
+                    binding.tvSpeed.text = city.wind.speed.appendMetersPerSecondFormat()
+                    binding.tvGust.text = city.wind.gust.appendMetersPerSecondFormat()
+                    binding.tvDegrees.text = city.wind.degrees.appendDegreeFormat()
 
-                    val currentWeatherIcon = city.weather.first().icon
+                    val currentWeatherIcon = city.icon
                     Picasso.get()
                         .load("https://openweathermap.org/img/wn/$currentWeatherIcon@4x.png")
                         .into(binding.ivWeatherIcon)
@@ -93,7 +90,7 @@ class CityFragment : Fragment() {
                     }
                 }
 
-                is ApiState.Error -> {
+                is DomainState.Error -> {
                     //When data returns an error,
                     //the Progress Bar is hidden and the UI shows a Toast with the error message
                     binding.progressBar.visibility = View.GONE

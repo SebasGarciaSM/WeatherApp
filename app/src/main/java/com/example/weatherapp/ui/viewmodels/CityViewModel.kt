@@ -4,25 +4,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.data.models.CityModel
-import com.example.weatherapp.data.repositories.CityRepository
-import com.example.weatherapp.utils.ApiState
+import com.example.weatherapp.domain.interfaces.ICityRepository
+import com.example.weatherapp.domain.models.WeatherDetailsModel
+import com.example.weatherapp.domain.models.DomainState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CityViewModel : ViewModel() {
+@HiltViewModel
+class CityViewModel @Inject constructor(private val repository: ICityRepository) : ViewModel() {
 
-    private val repository = CityRepository()
-
-    private val _cityState = MutableLiveData<ApiState<CityModel>>()
-    val cityState: LiveData<ApiState<CityModel>> = _cityState
+    private val _cityState = MutableLiveData<DomainState<WeatherDetailsModel>>()
+    val cityState: LiveData<DomainState<WeatherDetailsModel>> = _cityState
 
     var isCityFragmentVisible = MutableLiveData<Boolean>()
 
     //This method returns the Result State
     fun getCity(query: String) {
         viewModelScope.launch {
-            _cityState.value = ApiState.Loading
-            val result = repository.getCity(query)
+            _cityState.value = DomainState.Loading
+            val result = repository.getWeatherByCity(query)
             _cityState.value = result
         }
     }

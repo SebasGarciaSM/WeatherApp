@@ -18,6 +18,7 @@ import com.example.weatherapp.ui.views.dataStore
 import com.example.weatherapp.domain.models.DomainState
 import com.example.weatherapp.ui.UIWeatherUtils.appendDegreeFormat
 import com.example.weatherapp.ui.UIWeatherUtils.appendMetersPerSecondFormat
+import com.example.weatherapp.ui.UIWeatherUtils.appendPercentageFormat
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -71,9 +72,9 @@ class CityFragment : Fragment() {
                     binding.tvFeelsLike.text = city.feelsLikeInCelsius.appendDegreeFormat()
                     binding.tvMaxTemp.text = city.maxTempInCelsius.appendDegreeFormat()
                     binding.tvMinTemp.text = city.minTempInCelsius.appendDegreeFormat()
-                    binding.tvPressure.text = city.pressure
-                    binding.tvHumidity.text = city.humidity
-                    binding.tvSeaLevel.text = city.seaLevel
+                    binding.tvPressure.text = city.pressure.appendPercentageFormat()
+                    binding.tvHumidity.text = city.humidity.appendPercentageFormat()
+                    binding.tvSeaLevel.text = city.seaLevel.appendPercentageFormat()
 
                     binding.tvSpeed.text = city.wind.speed.appendMetersPerSecondFormat()
                     binding.tvGust.text = city.wind.gust.appendMetersPerSecondFormat()

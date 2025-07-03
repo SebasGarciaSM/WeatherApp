@@ -17,9 +17,9 @@ object Mappers {
             humidity = this.mainWeather.humidity.toString(),
             seaLevel = this.mainWeather.seaLevel.toString(),
             wind = WindDetailsModel(
-                speed = this.wind.speed.toDouble(),
-                gust = this.wind.gust.toDouble(),
-                degrees = this.wind.deg.toDouble()
+                speed = this.wind.speed,
+                gust = this.wind.gust,
+                degrees = this.wind.deg
             ),
             icon = this.weather.first().icon,
         )

@@ -11,17 +11,17 @@ class MockRepository @Inject constructor() : ICityRepository {
         return DomainState.Success(
             WeatherDetailsModel(
                 name = cityName,
-                temperatureInCelsius = 50.0,
-                feelsLikeInCelsius = 80.0,
-                maxTempInCelsius = 50.0,
-                minTempInCelsius = 50.0,
+                temperatureInCelsius = 50,
+                feelsLikeInCelsius = 80,
+                maxTempInCelsius = 50,
+                minTempInCelsius = 50,
                 pressure = "50",
                 humidity = "50",
                 seaLevel = "50",
                 wind = WindDetailsModel(
                     speed = 50.0,
                     gust = 50.0,
-                    degrees = 50.0,
+                    degrees = 50,
                 ),
                 icon = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fexample_5650380&psig=AOvVaw1ihAnFILIAGQY0s8lFq9Dn&ust=1751484730924000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIjvw5uznI4DFQAAAAAdAAAAABAE",
             )

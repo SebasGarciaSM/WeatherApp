@@ -1,6 +1,6 @@
 package com.example.weatherapp.data.network
 
-import com.example.weatherapp.core.Globals
+import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.data.models.CityModel
 import retrofit2.Response
 import retrofit2.http.GET
@@ -14,6 +14,6 @@ interface CityApiClient {
     @GET("data/2.5/weather")
     suspend fun getCity(
         @Query("q") query: String,
-        @Query("appid") apiKey: String = Globals.API_KEY,
+        @Query("appid") apiKey: String = BuildConfig.API_KEY,
     ): Response<CityModel>
 }

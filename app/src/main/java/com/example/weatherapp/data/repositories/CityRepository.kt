@@ -1,7 +1,7 @@
 package com.example.weatherapp.data.repositories
 
 import com.example.weatherapp.data.Mappers.toWeatherDetailsModel
-import com.example.weatherapp.data.network.CityService
+import com.example.weatherapp.data.network.CityApiClient
 import com.example.weatherapp.domain.interfaces.ICityRepository
 import com.example.weatherapp.domain.models.WeatherDetailsModel
 import com.example.weatherapp.domain.models.DomainState
@@ -9,9 +9,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class CityRepository @Inject constructor() : ICityRepository {
-
-    private val api = CityService()
+class CityRepository @Inject constructor(private val api: CityApiClient) : ICityRepository {
 
     //Gets the response, and then returns the API Result State
     override suspend fun getWeatherByCity(cityName: String): DomainState<WeatherDetailsModel> {

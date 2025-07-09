@@ -3,13 +3,17 @@ package com.example.weatherapp.data.repositories
 import com.example.weatherapp.data.Mappers.toWeatherDetailsModel
 import com.example.weatherapp.data.network.CityApiClient
 import com.example.weatherapp.domain.interfaces.ICityRepository
+import com.example.weatherapp.domain.interfaces.IWeatherIconService
 import com.example.weatherapp.domain.models.WeatherDetailsModel
 import com.example.weatherapp.domain.models.DomainState
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class CityRepository @Inject constructor(private val api: CityApiClient) : ICityRepository {
+class CityRepository @Inject constructor(
+    private val api: CityApiClient,
+    private val weatherIconService: IWeatherIconService
+) : ICityRepository {
 
     //Gets the response, and then returns the API Result State
     override suspend fun getWeatherByCity(cityName: String): DomainState<WeatherDetailsModel> {
@@ -18,7 +22,14 @@ class CityRepository @Inject constructor(private val api: CityApiClient) : ICity
             if (response.isSuccessful) {
                 val city = response.body()
                 if (city != null) {
-                    DomainState.Success(city.toWeatherDetailsModel())
+                    val weatherModel = city.toWeatherDetailsModel()
+                    DomainState.Success(
+                        weatherModel.copy(
+                            icon = weatherIconService.getIconUrlFromFileName(
+                                weatherModel.icon
+                            )
+                        )
+                    )
                 } else {
                     DomainState.Error("City not found")
                 }

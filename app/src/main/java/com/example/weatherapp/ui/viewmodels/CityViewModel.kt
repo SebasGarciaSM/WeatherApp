@@ -1,7 +1,7 @@
 package com.example.weatherapp.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.domain.interfaces.ICityRepository
@@ -14,17 +14,28 @@ import javax.inject.Inject
 @HiltViewModel
 class CityViewModel @Inject constructor(private val repository: ICityRepository) : ViewModel() {
 
-    private val _cityState = MutableLiveData<DomainState<WeatherDetailsModel>>()
-    val cityState: LiveData<DomainState<WeatherDetailsModel>> = _cityState
+    private val _cityState = mutableStateOf<DomainState<WeatherDetailsModel>>(DomainState.Loading)
+    val cityState: State<DomainState<WeatherDetailsModel>>
+        get() = _cityState
 
-    var isCityFragmentVisible = MutableLiveData<Boolean>()
+    private val _city = mutableStateOf("")
+    val city: State<String>
+        get() = _city
 
     //This method returns the Result State
-    fun getCity(query: String) {
+    fun getCity() {
         viewModelScope.launch {
             _cityState.value = DomainState.Loading
-            val result = repository.getWeatherByCity(query)
+            val result = repository.getWeatherByCity(_city.value)
             _cityState.value = result
         }
+    }
+
+    fun search(query: String) {
+        _city.value = query
+    }
+
+    fun onCleanQuery() {
+        _city.value = "";
     }
 }

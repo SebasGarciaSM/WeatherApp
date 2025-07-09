@@ -2,8 +2,6 @@ package com.example.weatherapp.di
 
 import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.data.network.CityApiClient
-import com.example.weatherapp.data.repositories.CityRepository
-import com.example.weatherapp.domain.interfaces.ICityRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

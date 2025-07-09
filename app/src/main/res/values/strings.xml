@@ -19,6 +19,9 @@
     <string name="errorMessage">An error has occurred</string>
 
     <string name="cityNotFound">City was not found</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="clear_icon">Clear Icon</string>
+    <string name="wind_icon">Wind Icon</string>
 
 
 </resources>

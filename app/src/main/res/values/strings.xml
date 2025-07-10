@@ -22,6 +22,7 @@
     <string name="search_icon">Search Icon</string>
     <string name="clear_icon">Clear Icon</string>
     <string name="wind_icon">Wind Icon</string>
+    <string name="search_for_a_city_to_see_its_weather_details">Search for a city to see its weather details</string>
 
 
 </resources>

@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -62,7 +63,38 @@ fun ErrorView(modifier: Modifier = Modifier, message: String) {
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-        Text(message)
+        val preLoaderLottieComposition by rememberLottieComposition(
+            LottieCompositionSpec.RawRes(
+                R.raw.no_data_found
+            )
+        )
+
+        val preLoaderProgress by animateLottieCompositionAsState(
+            preLoaderLottieComposition,
+            iterations = LottieConstants.IterateForever,
+            isPlaying = true,
+        )
+
+        Box(
+            modifier = modifier,
+            contentAlignment = Alignment.Center,
+        ) {
+            Column(
+                modifier = Modifier.padding(horizontal = 48.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LottieAnimation(
+                    composition = preLoaderLottieComposition,
+                    progress = { preLoaderProgress },
+                    modifier = Modifier.size(100.dp),
+                )
+                Text(
+                    message,
+                    style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Light),
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
     }
 }
 
@@ -95,7 +127,7 @@ fun IdleView(modifier: Modifier = Modifier) {
                 modifier = Modifier.size(200.dp)
             )
             Text(
-                "Search for a city to see weather details",
+                stringResource(R.string.search_for_a_city_to_see_its_weather_details),
                 style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Light),
                 textAlign = TextAlign.Center,
             )

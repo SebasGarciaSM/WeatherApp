@@ -43,6 +43,7 @@ import com.example.weatherapp.ui.UIWeatherUtils.appendMetersPerSecondFormat
 import com.example.weatherapp.ui.UIWeatherUtils.appendPercentageFormat
 import com.example.weatherapp.ui.core.DetailText
 import com.example.weatherapp.ui.core.ErrorView
+import com.example.weatherapp.ui.core.IdleView
 import com.example.weatherapp.ui.core.LoadingView
 import com.example.weatherapp.ui.theme.WeatherTheme
 import com.example.weatherapp.ui.viewmodels.CityViewModel
@@ -79,6 +80,7 @@ private fun CityLookupScreenContent(
             modifier = Modifier.fillMaxWidth(),
             value = city,
             onValueChange = onCityWriting,
+            placeholder = { Text(stringResource(R.string.searchCity)) },
             leadingIcon = {
                 Icon(
                     Icons.Filled.Search,
@@ -99,11 +101,13 @@ private fun CityLookupScreenContent(
         )
         //REVIEW DATA STATE
         when (weatherState) {
+            DomainState.Idle -> IdleView(modifier = Modifier.fillMaxSize())
             DomainState.Loading -> LoadingView(modifier = Modifier.fillMaxSize())
             is DomainState.Error -> ErrorView(
                 modifier = Modifier.fillMaxSize(),
                 message = weatherState.message
             )
+
             is DomainState.Success -> SuccessView(
                 modifier = Modifier.fillMaxSize(),
                 weatherState.data

@@ -96,4 +96,7 @@ dependencies {
 
     //Glide
     implementation(libs.landscapist.glide)
+
+    //Lottie
+    implementation(libs.lottie.compose)
 }

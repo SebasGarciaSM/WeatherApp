@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CityViewModel @Inject constructor(private val repository: ICityRepository) : ViewModel() {
 
-    private val _cityState = mutableStateOf<DomainState<WeatherDetailsModel>>(DomainState.Loading)
+    private val _cityState = mutableStateOf<DomainState<WeatherDetailsModel>>(DomainState.Idle)
     val cityState: State<DomainState<WeatherDetailsModel>>
         get() = _cityState
 

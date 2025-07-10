@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -55,13 +56,17 @@ fun CityLookupScreen(modifier: Modifier = Modifier, viewModel: CityViewModel = h
 
     val city by remember { viewModel.city }
     val weatherState by remember { viewModel.cityState }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     CityLookupScreenContent(
         modifier = modifier,
         city = city,
         onCityWriting = { viewModel.search(it) },
         weatherState = weatherState,
-        onSearch = { viewModel.getCity() },
+        onSearch = {
+            keyboardController?.hide()
+            viewModel.getCity()
+        },
         onCleanQuery = { viewModel.onCleanQuery() }
     )
 }

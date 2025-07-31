@@ -7,12 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.domain.interfaces.ICityRepository
 import com.example.weatherapp.domain.models.WeatherDetailsModel
 import com.example.weatherapp.domain.models.DomainState
+import com.example.weatherapp.domain.usecases.GetLastSearchedCityFromLocalStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CityViewModel @Inject constructor(private val repository: ICityRepository) : ViewModel() {
+class CityViewModel @Inject constructor(
+    private val repository: ICityRepository,
+    private val getLastSearchedCityFromLocalStorage: GetLastSearchedCityFromLocalStorage,
+) : ViewModel() {
 
     private val _cityState = mutableStateOf<DomainState<WeatherDetailsModel>>(DomainState.Idle)
     val cityState: State<DomainState<WeatherDetailsModel>>
@@ -37,5 +41,20 @@ class CityViewModel @Inject constructor(private val repository: ICityRepository)
 
     fun onCleanQuery() {
         _city.value = "";
+    }
+
+    fun getLastSearchCity() {
+        viewModelScope.launch {
+            when (val city = getLastSearchedCityFromLocalStorage()) {
+                is DomainState.Success -> {
+                    city.data?.let {
+                        _city.value = it
+                        getCity()
+                    }
+                }
+
+                else -> {}
+            }
+        }
     }
 }

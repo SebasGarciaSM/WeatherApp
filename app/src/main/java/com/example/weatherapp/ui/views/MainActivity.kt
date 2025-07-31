@@ -17,8 +17,6 @@ import com.example.weatherapp.ui.screens.CityLookupScreen
 import com.example.weatherapp.ui.theme.WeatherTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-//val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "city")
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

@@ -1,6 +1,6 @@
 [versions]
-agp = "8.11.0"
-hiltAndroid = "2.56.2"
+agp = "8.11.1"
+hiltAndroid = "2.57"
 kotlin = "2.2.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -12,22 +12,27 @@ lottieCompose = "6.6.7"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
-lifecycleViewmodel = "2.9.1"
-liveData = "2.9.1"
+lifecycleViewmodel = "2.9.2"
+liveData = "2.9.2"
 fragment = "1.8.8"
 retrofitVersion = "3.0.0"
 coroutineVersion = "1.10.2"
 picasso = "2.71828"
 datastore = "1.1.7"
-hilt = "2.56.2"
+hilt = "2.57"
 ksp = "2.2.0-2.0.2"
-composeBom = "2025.06.01"
+composeBom = "2025.07.00"
 activityCompose = "1.10.1"
-viewModelCompose = "2.9.1"
+roomKtx = "2.7.2"
+roomRuntime = "2.7.2"
+viewModelCompose = "2.9.2"
 hiltCompose = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

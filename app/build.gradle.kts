@@ -48,6 +48,7 @@ android {
     defaultConfig {
         buildConfigField("String", "API_KEY", "\"211ac8480e94ad451b4f949e1e2dc622\"")
         buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/\"")
+        buildConfigField("String", "DATABASE_NAME", "\"city.db\"")
     }
 }
 
@@ -99,4 +100,9 @@ dependencies {
 
     //Lottie
     implementation(libs.lottie.compose)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

@@ -1,6 +1,7 @@
 package com.example.weatherapp.di
 
 import com.example.weatherapp.data.local.DataStoreLocalStorageServiceImpl
+import com.example.weatherapp.data.local.RoomDatabaseLocalStorageImpl
 import com.example.weatherapp.data.local.WeatherIconServiceImpl
 import com.example.weatherapp.data.local.contracts.ILocalStorageService
 import com.example.weatherapp.domain.interfaces.IWeatherIconService
@@ -20,5 +21,5 @@ abstract class ServiceModule {
 
     @Binds
     @Singleton
-    abstract fun bindDataStoreLocalStorageService(implementation: DataStoreLocalStorageServiceImpl): ILocalStorageService
+    abstract fun bindDataStoreLocalStorageService(implementation: RoomDatabaseLocalStorageImpl): ILocalStorageService
 }

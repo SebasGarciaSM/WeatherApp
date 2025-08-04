@@ -15,12 +15,8 @@ import androidx.compose.ui.res.stringResource
 import com.example.weatherapp.R
 import com.example.weatherapp.ui.screens.CityLookupScreen
 import com.example.weatherapp.ui.theme.WeatherTheme
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    //private val cityViewModel: CityViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

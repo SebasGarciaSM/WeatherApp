@@ -8,12 +8,9 @@ import com.example.weatherapp.domain.interfaces.ICityRepository
 import com.example.weatherapp.domain.models.WeatherDetailsModel
 import com.example.weatherapp.domain.models.DomainState
 import com.example.weatherapp.domain.usecases.GetLastSearchedCityFromLocalStorage
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class CityViewModel @Inject constructor(
+class CityViewModel(
     private val repository: ICityRepository,
     private val getLastSearchedCityFromLocalStorage: GetLastSearchedCityFromLocalStorage,
 ) : ViewModel() {

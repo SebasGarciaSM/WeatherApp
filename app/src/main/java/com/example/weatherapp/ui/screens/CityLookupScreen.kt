@@ -35,7 +35,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.DomainState
 import com.example.weatherapp.domain.models.WeatherDetailsModel
@@ -51,9 +50,10 @@ import com.example.weatherapp.ui.theme.WeatherTheme
 import com.example.weatherapp.ui.viewmodels.CityViewModel
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CityLookupScreen(modifier: Modifier = Modifier, viewModel: CityViewModel = hiltViewModel()) {
+fun CityLookupScreen(modifier: Modifier = Modifier, viewModel: CityViewModel = koinViewModel()) {
 
     val city by remember { viewModel.city }
     val weatherState by remember { viewModel.cityState }

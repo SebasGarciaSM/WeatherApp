@@ -2,20 +2,16 @@ package com.example.weatherapp.data.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.weatherapp.data.local.contracts.ILocalStorageService
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class DataStoreLocalStorageServiceImpl @Inject constructor(
-    @param:ApplicationContext private val context: Context
+class DataStoreLocalStorageServiceImpl(
+    private val context: Context
 ) : ILocalStorageService {
     val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "city")
 

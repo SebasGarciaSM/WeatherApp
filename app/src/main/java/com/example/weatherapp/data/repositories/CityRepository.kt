@@ -9,9 +9,8 @@ import com.example.weatherapp.domain.models.WeatherDetailsModel
 import com.example.weatherapp.domain.models.DomainState
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
 
-class CityRepository @Inject constructor(
+class CityRepository (
     private val api: CityApiClient,
     private val weatherIconService: IWeatherIconService,
     private val localStorageService: ILocalStorageService,

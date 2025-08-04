@@ -3,9 +3,8 @@ package com.example.weatherapp.data.local
 import com.example.weatherapp.data.local.contracts.ILocalStorageService
 import com.example.weatherapp.data.local.database.CityDao
 import com.example.weatherapp.data.local.database.entities.CityEntity
-import javax.inject.Inject
 
-class RoomDatabaseLocalStorageImpl @Inject constructor(
+class RoomDatabaseLocalStorageImpl(
     private val cityDao: CityDao
 ) : ILocalStorageService {
     override suspend fun saveLastSearchedCity(cityName: String) {

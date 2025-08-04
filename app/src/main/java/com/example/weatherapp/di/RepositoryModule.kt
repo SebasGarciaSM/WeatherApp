@@ -2,17 +2,10 @@ package com.example.weatherapp.di
 
 import com.example.weatherapp.data.repositories.CityRepository
 import com.example.weatherapp.domain.interfaces.ICityRepository
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.core.module.dsl.bind
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-
-    @Binds
-    @Singleton
-    abstract fun bindCityRepository(implementation: CityRepository): ICityRepository
+val repositoryModule = module {
+    singleOf(::CityRepository) { bind<ICityRepository>() }
 }

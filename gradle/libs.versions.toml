@@ -1,6 +1,7 @@
 [versions]
 agp = "8.11.1"
 hiltAndroid = "2.57"
+koinAndroid = "4.1.0"
 kotlin = "2.2.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -19,26 +20,24 @@ retrofitVersion = "3.0.0"
 coroutineVersion = "1.10.2"
 picasso = "2.71828"
 datastore = "1.1.7"
-hilt = "2.57"
 ksp = "2.2.0-2.0.2"
 composeBom = "2025.07.00"
 activityCompose = "1.10.1"
 roomKtx = "2.7.2"
 roomRuntime = "2.7.2"
 viewModelCompose = "2.9.2"
-hiltCompose = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroid" }
 landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapistGlide" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -67,15 +66,13 @@ compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 view-model-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "viewModelCompose" }
-hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [bundles]
-compose = ["compose-material3", "compose-ui", "compose-preview", "activity-compose", "view-model-compose", "hilt-compose"]
+compose = ["compose-material3", "compose-ui", "compose-preview", "activity-compose", "view-model-compose"]
 composeDebugs = ["compose-tooling"]

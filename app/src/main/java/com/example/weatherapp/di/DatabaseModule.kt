@@ -5,25 +5,15 @@ import androidx.room.Room
 import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.data.local.database.AppDatabase
 import com.example.weatherapp.data.local.database.CityDao
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
-
-    @Provides
-    @Singleton
-    fun provideDatabaseInstance(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, BuildConfig.DATABASE_NAME)
+val databaseModule = module {
+    single<AppDatabase> {
+        Room.databaseBuilder(get(), AppDatabase::class.java, BuildConfig.DATABASE_NAME)
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideCityDao(appDatabase: AppDatabase): CityDao = appDatabase.cityDao()
+    single<CityDao> {
+        get<AppDatabase>().cityDao()
+    }
 }

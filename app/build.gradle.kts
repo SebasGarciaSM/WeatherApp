@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt.android)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -86,10 +85,6 @@ dependencies {
     //DataStore
     implementation(libs.datastore)
 
-    //Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-
     //Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
@@ -105,4 +100,8 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+
+    //Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 }

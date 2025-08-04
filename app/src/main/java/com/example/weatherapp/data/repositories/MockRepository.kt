@@ -4,9 +4,8 @@ import com.example.weatherapp.domain.interfaces.ICityRepository
 import com.example.weatherapp.domain.models.DomainState
 import com.example.weatherapp.domain.models.WeatherDetailsModel
 import com.example.weatherapp.domain.models.WindDetailsModel
-import javax.inject.Inject
 
-class MockRepository @Inject constructor() : ICityRepository {
+class MockRepository() : ICityRepository {
     override suspend fun getWeatherByCity(cityName: String): DomainState<WeatherDetailsModel> {
         return DomainState.Success(
             WeatherDetailsModel(

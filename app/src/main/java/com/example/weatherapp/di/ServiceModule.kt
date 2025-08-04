@@ -5,21 +5,13 @@ import com.example.weatherapp.data.local.RoomDatabaseLocalStorageImpl
 import com.example.weatherapp.data.local.WeatherIconServiceImpl
 import com.example.weatherapp.data.local.contracts.ILocalStorageService
 import com.example.weatherapp.domain.interfaces.IWeatherIconService
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.core.module.dsl.bind
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class ServiceModule {
+val serviceModule = module {
+    singleOf(::WeatherIconServiceImpl) { bind<IWeatherIconService>() }
 
-    @Binds
-    @Singleton
-    abstract fun bindWeatherIconService(implementation: WeatherIconServiceImpl): IWeatherIconService
-
-    @Binds
-    @Singleton
-    abstract fun bindDataStoreLocalStorageService(implementation: RoomDatabaseLocalStorageImpl): ILocalStorageService
+    //singleOf(::DataStoreLocalStorageServiceImpl) { bind<ILocalStorageService>() }
+    single<ILocalStorageService> { RoomDatabaseLocalStorageImpl(get()) }
 }
